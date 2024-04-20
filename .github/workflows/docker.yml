@@ -1,0 +1,61 @@
+name: RSSHub / Docker
+
+on:
+  workflow_call:
+  workflow_dispatch:
+
+jobs:
+  init:
+    name: Addon / Init
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.yaml.outputs.version }}
+      architectures: ${{ steps.info.outputs.architectures }}
+    steps:
+      - name: Git Checkout
+        uses: actions/checkout@v4
+
+      - name: Get Version from Config
+        uses: christian-ci/action-yaml-github-output@v2
+        id: yaml
+        with:
+          file_path: ${{ github.workspace }}/rsshub/config.yaml
+
+      - name: Get Addon Information
+        id: info
+        uses: home-assistant/actions/helpers/info@master
+        with:
+          path: "./rsshub"
+
+  docker:
+    name: Docker / Build
+    needs: 
+      - init
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        arch: ${{ fromJson(needs.init.outputs.architectures) }}
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Git Checkout
+        uses: actions/checkout@v4
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: ghcr.io        
+
+      - name: Build
+        uses: home-assistant/builder@master
+        with:
+          args: |
+            --${{ matrix.arch }} \
+            --target rsshub \
+            --docker-hub "ghcr.io/${{ github.repository_owner }}" \
+            --image "rsshub-addon-{arch}" \
+            --addon

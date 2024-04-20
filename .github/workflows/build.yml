@@ -1,0 +1,115 @@
+name: RSSHub / Addon
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  changes:
+    name: Config / Changed
+    runs-on: ubuntu-latest
+    outputs:
+      changes: ${{ steps.changes.outputs.scr }}
+    steps:
+      - name: Git Checkout
+        uses: actions/checkout@v4
+
+      - name: Check for Changes
+        uses: dorny/paths-filter@v3
+        id: changes
+        with:
+          filters: |
+            scr:
+              - 'rsshub/**'
+
+  init:
+    name: Version / Changed
+    runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ steps.get-latest-tag.outputs.tag }}
+      version: ${{ steps.yaml.outputs.version }}
+      architectures: ${{ steps.info.outputs.architectures }}
+      description: ${{ steps.desc.outputs.description }}
+    steps:
+      - name: Git Checkout
+        uses: actions/checkout@v4
+
+      - name: Get Latest Tag
+        uses: actions-ecosystem/action-get-latest-tag@v1
+        id: get-latest-tag
+        with:
+          semver_only: true      
+
+      - name: Get Version from Config
+        uses: christian-ci/action-yaml-github-output@v2
+        id: yaml
+        with:
+          file_path: ./rsshub/config.yaml
+
+      - name: Get Addon Information
+        id: info
+        uses: home-assistant/actions/helpers/info@master
+        with:
+          path: "./rsshub"
+
+      - name: Get Description
+        id: desc
+        run: |
+          echo "description="$(cat CHANGELOG.md | awk '/^##/{if(++i>1)exit} i' | awk '{if(NR>1)print}')"" >> $GITHUB_OUTPUT
+        working-directory: ./rsshub
+
+  test:
+    name: Test / Build
+    if: ${{ needs.changes.outputs.changes == 'true' }}
+    needs: 
+      - changes
+      - init
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        arch: ${{ fromJson(needs.init.outputs.architectures) }}
+    steps:
+      - name: Git Checkout
+        uses: actions/checkout@v4
+        
+      - name: Test Build
+        uses: home-assistant/builder@master
+        with:
+          args: |
+            --test \
+            --${{ matrix.arch }} \
+            --target rsshub \
+            --docker-hub "ghcr.io/${{ github.repository_owner }}" \
+            --image "rsshub-addon-{arch}" \
+            --addon
+
+  docker:
+    name: Docker
+    if: ${{ needs.init.outputs.tag != needs.init.outputs.version }}
+    uses: ./.github/workflows/docker.yml
+    needs: 
+      - init
+      - test
+    permissions:
+      contents: read
+      packages: write
+    secrets: inherit
+
+  release:
+    name: Release
+    if: ${{ needs.init.outputs.tag != needs.init.outputs.version }}
+    needs: 
+      - init
+      - test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: "${{ needs.init.outputs.version }}: RSSHub"
+          tag_name: ${{ needs.init.outputs.version }}
+          body: ${{ needs.init.outputs.description }}
+          generate_release_notes: true
