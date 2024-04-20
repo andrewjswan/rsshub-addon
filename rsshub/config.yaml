@@ -9,8 +9,6 @@ codenotary: notary@home-assistant.io
 
 arch: 
   - amd64
-  - aarch64
-  - armv7
 
 image: ghcr.io/andrewjswan/rsshub-addon-{arch}
 
@@ -22,8 +20,6 @@ ingress: true
 ingress_port: 5000
 
 map: 
-  - addons:rw
-  - all_addon_configs:rw
   - config:rw
   - share:rw
   - ssl:rw
