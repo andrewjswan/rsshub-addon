@@ -49,6 +49,21 @@ bashio::log.info 'Prepare config...'
 echo >> .env
 echo 'PORT=5000' >> .env
 echo 'NO_LOGFILES=true' >> .env
+echo 'DISALLOW_ROBOT=false' >> .env
+echo 'TITLE_LENGTH_LIMIT=255' >> .env
+
+REQUEST_RETRY="$(bashio::config 'request_retry')"
+if [ "$REQUEST_RETRY" != "null" ]; then
+  echo "REQUEST_RETRY=${REQUEST_RETRY}" >> .env
+fi
+REQUEST_TIMEOUT="$(bashio::config 'request_timeout')"
+if [ "$REQUEST_TIMEOUT" != "null" ]; then
+  echo "REQUEST_TIMEOUT=${REQUEST_TIMEOUT}" >> .env
+fi
+LOGGER_LEVEL="$(bashio::config 'logger_level')"
+if [ "$LOGGER_LEVEL" != "null" ]; then
+  echo "LOGGER_LEVEL=${LOGGER_LEVEL}" >> .env
+fi
 
 bashio::log.info 'RSSHub Start'
 bashio::log.info

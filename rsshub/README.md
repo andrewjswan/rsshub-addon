@@ -6,7 +6,7 @@
 
 [![ha addon_badge](https://img.shields.io/badge/HA-Addon-blue.svg)](https://developers.home-assistant.io/docs/add-ons)
 [![rsshub](https://img.shields.io/badge/RSS-Hub-blue.svg)](https://github.com/andrewjswan/rsshub-addon/)
-[![GitHub](https://img.shields.io/github/license/andrewjswan/rsshub-addon?color=blue)](https://github.com/andrewjswan/rsshub-addon/blob/master/LICENSE)
+[![GitHub](https://img.shields.io/github/license/andrewjswan/rsshub-addon?color=blue)](https://github.com/andrewjswan/rsshub-addon/blob/main/LICENSE)
 [![GitHub release (latest SemVer including pre-releases)](https://img.shields.io/github/v/release/andrewjswan/rsshub-addon?include_prereleases)](https://github.com/andrewjswan/rsshub-addon/blob/main/rsshub/CHANGELOG.md)
 [![StandWithUkraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/badges/StandWithUkraine.svg)](https://github.com/vshymanskyy/StandWithUkraine/blob/main/docs/README.md)
 

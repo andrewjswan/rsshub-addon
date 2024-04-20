@@ -1,0 +1,10 @@
+configuration:
+  request_retry:
+    name: Request retry
+    description: Retries allowed for failed requests, default to `2`
+  request_timeout:
+    name: Request timeout
+    description: Milliseconds to wait for the server to end the response before aborting the request with error, default to `3000`
+  logger_level:
+    name: Logger level
+    description: Specifies the maximum level of messages to the console and log file, default to `info`

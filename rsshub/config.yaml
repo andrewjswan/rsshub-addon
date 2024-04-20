@@ -36,3 +36,8 @@ ports_description:
   5000/tcp: "Web Interface"
 
 watchdog: "tcp://[HOST]:[PORT:5000]"
+
+schema:
+  request_retry: int?
+  request_timeout: int?
+  logger_level: list(emerg|alert|crit|error|warning|notice|info|debug)?
