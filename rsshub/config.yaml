@@ -1,6 +1,6 @@
 ---
 name: RSSHub
-version: 2024.4.1
+version: 2024.4.3
 slug: rsshub
 description: Generate a RSS/Atom/JSON feed from anything
 url: https://github.com/andrewjswan/rsshub-addon/
