@@ -1,24 +1,14 @@
 ARG BUILD_FROM
-FROM $BUILD_FROM
+FROM diygod/rsshub AS org
 
-### Build RSSHub
+FROM $BUILD_FROM
 
 # Packages
 RUN \
   apk add --no-cache --virtual .build-dependencies \
-    git npm
+    npm
 
-# Clone
-ADD "https://api.github.com/repos/DIYgod/RSSHub/commits?per_page=1" latest_commit
-RUN \
-  git clone --branch master --single-branch https://github.com/DIYgod/RSSHub.git \
-  && cd ./RSSHub
-
-WORKDIR /RSSHub
-
-# Build
-RUN npm install
-RUN npm run build
+WORKDIR /app
 
 # Build arguments
 ARG BUILD_ARCH
@@ -39,6 +29,8 @@ LABEL \
     maintainer="Andrew J.Swan <andrewjswan@addons.community>"
 
 # Copy data for add-on
+COPY --from=org /app /app
+
 COPY run.sh /
 RUN chmod a+x /run.sh
 
