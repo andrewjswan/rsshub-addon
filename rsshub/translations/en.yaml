@@ -5,6 +5,12 @@ configuration:
   request_timeout:
     name: Request timeout
     description: Milliseconds to wait for the server to end the response before aborting the request with error, default to `3000`
+  cache_expire:
+    name: Cache expire
+    description: Route cache expiry time in seconds, default to `5 * 60`
+  cache_content_expire:
+    name: Cache content expire
+    description: Content cache expiry time in seconds, it will be recalculated when it is accessed, default to `1 * 60 * 60`
   logger_level:
     name: Logger level
     description: Specifies the maximum level of messages to the console and log file, default to `info`

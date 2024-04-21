@@ -1,5 +1,9 @@
 # Changelog
 
+## 2024.4.5 - 2024-04-21
+
+- Add cache config options
+
 ## 2024.4.3 - 2024-04-20
 
 - Add config options

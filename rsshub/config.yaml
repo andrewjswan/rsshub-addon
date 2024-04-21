@@ -1,6 +1,6 @@
 ---
 name: RSSHub
-version: 2024.4.3
+version: 2024.4.5
 slug: rsshub
 description: Generate a RSS/Atom/JSON feed from anything
 url: https://github.com/andrewjswan/rsshub-addon/
@@ -40,4 +40,6 @@ watchdog: "tcp://[HOST]:[PORT:5000]"
 schema:
   request_retry: int?
   request_timeout: int?
+  cache_expire: int?
+  cache_content_expire: int?
   logger_level: list(emerg|alert|crit|error|warning|notice|info|debug)?

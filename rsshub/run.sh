@@ -60,6 +60,14 @@ REQUEST_TIMEOUT="$(bashio::config 'request_timeout')"
 if [ "$REQUEST_TIMEOUT" != "null" ]; then
   echo "REQUEST_TIMEOUT=${REQUEST_TIMEOUT}" >> .env
 fi
+CACHE_EXPIRE="$(bashio::config 'cache_expire')"
+if [ "$CACHE_EXPIRE" != "null" ]; then
+  echo "CACHE_EXPIRE=${CACHE_EXPIRE}" >> .env
+fi
+CACHE_CONTENT_EXPIRE="$(bashio::config 'cache_content_expire')"
+if [ "$CACHE_CONTENT_EXPIRE" != "null" ]; then
+  echo "CACHE_CONTENT_EXPIRE=${CACHE_CONTENT_EXPIRE}" >> .env
+fi
 LOGGER_LEVEL="$(bashio::config 'logger_level')"
 if [ "$LOGGER_LEVEL" != "null" ]; then
   echo "LOGGER_LEVEL=${LOGGER_LEVEL}" >> .env
