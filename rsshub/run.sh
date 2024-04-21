@@ -74,7 +74,6 @@ if [ "$LOGGER_LEVEL" != "null" ]; then
 fi
 
 bashio::log.info 'RSSHub Start'
-bashio::log.info
 
 # ==============================================================================
 
@@ -84,6 +83,5 @@ bashio::color.reset
 
 # ==============================================================================
 
-bashio::log.info
 bashio::log.info 'RSSHub Stop'
 bashio::exit.ok
