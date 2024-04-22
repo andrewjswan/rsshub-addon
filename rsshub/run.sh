@@ -41,39 +41,32 @@ fi
 
 cd /app
 
-CONFIG_PATH=/data/options.json
-
 bashio::log.info 'RSSHub Starting...'
 
 bashio::log.info 'Prepare config...'
 echo >> .env
-echo 'PORT=5000' >> .env
 echo 'NO_LOGFILES=true' >> .env
 echo 'DISALLOW_ROBOT=false' >> .env
 echo 'TITLE_LENGTH_LIMIT=255' >> .env
 
-REQUEST_RETRY="$(bashio::config 'request_retry')"
-if [ "$REQUEST_RETRY" != "null" ]; then
-  echo "REQUEST_RETRY=${REQUEST_RETRY}" >> .env
+if bashio::config.has_value 'request_retry'; then
+  echo "REQUEST_RETRY=$(bashio::config 'request_retry')" >> .env
 fi
-REQUEST_TIMEOUT="$(bashio::config 'request_timeout')"
-if [ "$REQUEST_TIMEOUT" != "null" ]; then
-  echo "REQUEST_TIMEOUT=${REQUEST_TIMEOUT}" >> .env
+if bashio::config.has_value 'request_timeout'; then
+  echo "REQUEST_TIMEOUT=$(bashio::config 'request_timeout')" >> .env
 fi
-CACHE_EXPIRE="$(bashio::config 'cache_expire')"
-if [ "$CACHE_EXPIRE" != "null" ]; then
-  echo "CACHE_EXPIRE=${CACHE_EXPIRE}" >> .env
+if bashio::config.has_value 'cache_expire'; then
+  echo "CACHE_EXPIRE=$(bashio::config 'cache_expire')" >> .env
 fi
-CACHE_CONTENT_EXPIRE="$(bashio::config 'cache_content_expire')"
-if [ "$CACHE_CONTENT_EXPIRE" != "null" ]; then
-  echo "CACHE_CONTENT_EXPIRE=${CACHE_CONTENT_EXPIRE}" >> .env
+if bashio::config.has_value 'cache_content_expire'; then
+  echo "CACHE_CONTENT_EXPIRE=$(bashio::config 'cache_content_expire')" >> .env
 fi
-LOGGER_LEVEL="$(bashio::config 'logger_level')"
-if [ "$LOGGER_LEVEL" != "null" ]; then
-  echo "LOGGER_LEVEL=${LOGGER_LEVEL}" >> .env
+if bashio::config.has_value 'logger_level'; then
+  echo "LOGGER_LEVEL=$(bashio::config 'logger_level')" >> .env
 fi
 
 bashio::log.info 'RSSHub Start'
+bashio::log.blue "RSSHub port mapping (local:external): $(bashio::addon.network), use external port for access."
 
 # ==============================================================================
 

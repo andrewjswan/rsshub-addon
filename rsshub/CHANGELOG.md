@@ -1,5 +1,9 @@
 # Changelog
 
+## 2024.4.7 - 2024-04-22
+
+- Ingress rework
+
 ## 2024.4.5 - 2024-04-21
 
 - Add cache config options
