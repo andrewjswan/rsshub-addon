@@ -9,6 +9,7 @@ codenotary: notary@home-assistant.io
 
 arch: 
   - amd64
+  - aarch64
 
 image: ghcr.io/andrewjswan/rsshub-addon-{arch}
 
