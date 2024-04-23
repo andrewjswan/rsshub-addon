@@ -8,6 +8,7 @@
 [![rsshub](https://img.shields.io/badge/RSS-Hub-blue.svg)](https://github.com/andrewjswan/rsshub-addon/)
 [![GitHub](https://img.shields.io/github/license/andrewjswan/rsshub-addon?color=blue)](https://github.com/andrewjswan/rsshub-addon/blob/main/LICENSE)
 [![GitHub release (latest SemVer including pre-releases)](https://img.shields.io/github/v/release/andrewjswan/rsshub-addon?include_prereleases)](https://github.com/andrewjswan/rsshub-addon/blob/main/rsshub/CHANGELOG.md)
+[![GitHub package.json version](https://img.shields.io/github/package-json/v/DIYgod/RSSHub?label=RSSHub%40based)](https://github.com/DIYgod/RSSHub)
 [![StandWithUkraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/badges/StandWithUkraine.svg)](https://github.com/vshymanskyy/StandWithUkraine/blob/main/docs/README.md)
 
 RSSHub is an open source, easy to use, and extensible RSS feed generator. It's capable of generating RSS feeds from pretty much everything.
