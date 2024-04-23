@@ -1,6 +1,6 @@
 # Changelog
 
-## 2024.4.7 - 2024-04-22
+## 2024.4.13 - 2024-04-23
 
 - Add `aarch64` and `armv7` support
 
