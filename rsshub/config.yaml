@@ -1,18 +1,18 @@
 ---
 name: RSSHub
-version: 2024.4.13
+version: 2024.9.5
 slug: rsshub
 description: Generate a RSS/Atom/JSON feed from anything
 url: https://github.com/andrewjswan/rsshub-addon/
 
 codenotary: notary@home-assistant.io
 
-arch: 
+arch:
   - amd64
   - aarch64
   - armv7
 
-image: ghcr.io/andrewjswan/rsshub-addon-{arch}
+#image: ghcr.io/andrewjswan/rsshub-addon-{arch}
 
 startup: services
 boot: auto
@@ -20,7 +20,7 @@ init: false
 
 ingress: true
 
-map: 
+map:
   - config:rw
   - share:rw
   - ssl:rw

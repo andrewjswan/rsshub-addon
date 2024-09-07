@@ -1,5 +1,9 @@
 # Changelog
 
+## 2024.9.5 - 2024-09-06
+
+- Updated to the latest version of RSSHub
+
 ## 2024.4.13 - 2024-04-23
 
 - Add `aarch64` and `armv7` support
