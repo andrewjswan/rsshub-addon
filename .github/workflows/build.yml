@@ -40,7 +40,7 @@ jobs:
         uses: actions-ecosystem/action-get-latest-tag@v1
         id: get-latest-tag
         with:
-          semver_only: true      
+          semver_only: true
 
       - name: Get Version from Config
         uses: christian-ci/action-yaml-github-output@v2
