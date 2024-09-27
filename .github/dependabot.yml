@@ -12,3 +12,18 @@ updates:
     commit-message:
       prefix: "DEP"
     open-pull-requests-limit: 10
+
+  # Enable version updates for Docker
+  - package-ecosystem: "docker"
+    directories:
+      - "*"
+    schedule:
+      interval: weekly
+      day: monday
+      time: "12:00"
+    labels:
+      - dependencies
+      - docker
+    commit-message:
+      prefix: "DCR"
+    open-pull-requests-limit: 10
