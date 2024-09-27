@@ -40,7 +40,7 @@ jobs:
         uses: actions-ecosystem/action-get-latest-tag@v1
         id: get-latest-tag
         with:
-          semver_only: true      
+          semver_only: true
 
       - name: Get Version from Config
         uses: christian-ci/action-yaml-github-output@v2
@@ -63,7 +63,7 @@ jobs:
   test:
     name: Test / Build
     if: ${{ needs.changes.outputs.changes == 'true' }}
-    needs: 
+    needs:
       - changes
       - init
     runs-on: ubuntu-latest
@@ -74,7 +74,7 @@ jobs:
     steps:
       - name: Git Checkout
         uses: actions/checkout@v4
-        
+
       - name: Test Build
         uses: home-assistant/builder@master
         with:
@@ -90,7 +90,7 @@ jobs:
     name: Docker
     if: ${{ needs.init.outputs.tag != needs.init.outputs.version }}
     uses: ./.github/workflows/docker.yml
-    needs: 
+    needs:
       - init
       - test
     permissions:
@@ -101,7 +101,7 @@ jobs:
   release:
     name: Release
     if: ${{ needs.init.outputs.tag != needs.init.outputs.version }}
-    needs: 
+    needs:
       - init
       - test
     runs-on: ubuntu-latest
