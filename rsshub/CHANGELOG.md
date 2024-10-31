@@ -1,5 +1,9 @@
 # Changelog
 
+## 2024.10.5 - 2024-10-31
+
+- Updated to the latest version of RSSHub
+
 ## 2024.9.5 - 2024-09-06
 
 - Updated to the latest version of RSSHub
