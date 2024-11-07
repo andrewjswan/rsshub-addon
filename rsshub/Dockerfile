@@ -41,7 +41,6 @@ WORKDIR /
 COPY rootfs /
 
 # Copy data for add-on
-WORKDIR /app
 COPY --from=org /app /app
 
 COPY run.sh /
