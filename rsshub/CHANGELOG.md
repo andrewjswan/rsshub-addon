@@ -1,6 +1,6 @@
 # Changelog
 
-## 2024.11.1 - 2024-11-07
+## 2024.11.3 - 2024-11-07
 
 - Updated to the latest version of RSSHub
 
