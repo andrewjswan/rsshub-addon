@@ -47,6 +47,7 @@ COPY run.sh /
 
 # Make scripts executable
 RUN chmod a+x $(find "./" -type f -iname "*.sh")
+RUN chmod a+x $(find "./etc/services.d" -type f -iname "*")
 
 # Start RSSHub
 CMD [ "/run.sh" ]
