@@ -45,8 +45,9 @@ WORKDIR /app
 COPY --from=org /app /app
 
 COPY run.sh /
-RUN chmod a+x /run.sh
+
+# Make scripts executable
+RUN chmod a+x $(find "./" -type f -iname "*.sh")
 
 # Start RSSHub
-
 CMD [ "/run.sh" ]
