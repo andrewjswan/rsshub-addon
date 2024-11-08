@@ -113,3 +113,4 @@ jobs:
           tag_name: ${{ needs.init.outputs.version }}
           body: ${{ needs.init.outputs.description }}
           generate_release_notes: true
+          token: ${{ secrets.DISPATCH_TOKEN }}
