@@ -48,7 +48,7 @@ jobs:
       - information
     steps:
       - name: 🚀 Dispatch Repository Updater update signal
-        uses: peter-evans/repository-dispatch@v1
+        uses: peter-evans/repository-dispatch@v3
         with:
           token: ${{ secrets.DISPATCH_TOKEN }}
           repository: ${{ github.repository_owner }}/home-assistant-addons
