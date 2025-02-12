@@ -42,31 +42,43 @@ fi
 cd /app
 
 bashio::log.info 'RSSHub Starting...'
+bashio::log.info 'Configuration:'
 
-bashio::log.info 'Prepare config...'
-echo >> .env
-echo 'NO_LOGFILES=true' >> .env
-echo 'DISALLOW_ROBOT=false' >> .env
-echo 'TITLE_LENGTH_LIMIT=255' >> .env
+export NO_LOGFILES=true
+export DISALLOW_ROBOT=false
+export TITLE_LENGTH_LIMIT=255
 
 if bashio::config.has_value 'request_retry'; then
-  echo "REQUEST_RETRY=$(bashio::config 'request_retry')" >> .env
+  export REQUEST_RETRY=$(bashio::config 'request_retry')
+  bashio::log.blue "  Request retry: $(bashio::config 'request_retry')"
 fi
 if bashio::config.has_value 'request_timeout'; then
-  echo "REQUEST_TIMEOUT=$(bashio::config 'request_timeout')" >> .env
+  export REQUEST_TIMEOUT=$(bashio::config 'request_timeout')
+  bashio::log.blue "  Request timeout: $(bashio::config 'request_timeout')"
 fi
 if bashio::config.has_value 'cache_expire'; then
-  echo "CACHE_EXPIRE=$(bashio::config 'cache_expire')" >> .env
+  export CACHE_EXPIRE=$(bashio::config 'cache_expire')
+  bashio::log.blue "  Cache expire: $(bashio::config 'cache_expire')"
 fi
 if bashio::config.has_value 'cache_content_expire'; then
-  echo "CACHE_CONTENT_EXPIRE=$(bashio::config 'cache_content_expire')" >> .env
+  export CACHE_CONTENT_EXPIRE=$(bashio::config 'cache_content_expire')
+  bashio::log.blue "  Cache content expire: $(bashio::config 'cache_content_expire')"
 fi
 if bashio::config.has_value 'logger_level'; then
-  echo "LOGGER_LEVEL=$(bashio::config 'logger_level')" >> .env
+  export LOGGER_LEVEL=$(bashio::config 'logger_level')
+  bashio::log.blue "  Logger level: $(bashio::config 'logger_level')"
 fi
 
-bashio::log.info 'RSSHub Start'
+ROUTE_FILE="/addons_config/rsshub/routes_env.sh"
+if [ -f $ROUTE_FILE ]; then
+  bashio::log.notice '  Adding route specific configurations:'
+  bashio::log.notice "  ${ROUTE_FILE}"
+  source $ROUTE_FILE
+fi
+
 bashio::log.blue "RSSHub port mapping (local:external): $(bashio::addon.network), use external port for access."
+
+bashio::log.info 'RSSHub Start'
 
 # ==============================================================================
 
