@@ -28,6 +28,12 @@ Add the repository URL under **Supervisor → Add-on Store** in your Home Assist
 
 Configure the add-on via your Home Assistant front-end under **Supervisor → Dashboard → RSSHub**.
 
+If you need to add route specific configurations, create a `routes_env.sh` file in the `/addons_config/rsshub` directory with the necessary environment variables, for example:
+```
+export IG_USERNAME=user
+export IG_PASSWORD=password
+```
+
 ## Notes
 
 Builded from https://github.com/DIYgod/RSSHub

@@ -1,5 +1,10 @@
 # Changelog
 
+## 2025.2.1 - 2025-02-12
+
+- Added the possibility to specify route specific configurations
+- Updated to the latest version of RSSHub
+
 ## 2024.11.7 - 2024-11-08
 
 - Publication in the general repository
