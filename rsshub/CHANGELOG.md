@@ -1,5 +1,9 @@
 # Changelog
 
+## 2025.2.3 - 2025-02-13
+
+- Fix for route specific configurations
+
 ## 2025.2.1 - 2025-02-12
 
 - Added the possibility to specify route specific configurations

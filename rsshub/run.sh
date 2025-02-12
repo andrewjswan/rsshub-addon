@@ -69,10 +69,10 @@ if bashio::config.has_value 'logger_level'; then
   bashio::log.blue "  Logger level: $(bashio::config 'logger_level')"
 fi
 
-ROUTE_FILE="/addons_config/rsshub/routes_env.sh"
+ROUTE_FILE="/addon_configs/rsshub/routes_env.sh"
 if [ -f $ROUTE_FILE ]; then
-  bashio::log.notice '  Adding route specific configurations:'
-  bashio::log.notice "  ${ROUTE_FILE}"
+  bashio::log.blue '  Adding route specific configurations:'
+  bashio::log.blue "    ${ROUTE_FILE}"
   source $ROUTE_FILE
 fi
 
