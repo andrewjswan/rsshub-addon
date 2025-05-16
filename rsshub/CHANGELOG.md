@@ -1,5 +1,9 @@
 # Changelog
 
+## 2025.5.3 - 2025-05-16
+
+- Remove armv7 support
+
 ## 2025.5.1 - 2025-05-16
 
 - Updated to the latest version of RSSHub
