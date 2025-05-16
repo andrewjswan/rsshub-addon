@@ -1,5 +1,9 @@
 # Changelog
 
+## 2025.5.1 - 2025-05-16
+
+- Updated to the latest version of RSSHub
+
 ## 2025.2.3 - 2025-02-13
 
 - Fix for route specific configurations
