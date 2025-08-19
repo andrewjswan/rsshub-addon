@@ -14,7 +14,7 @@ jobs:
       changes: ${{ steps.changes.outputs.scr }}
     steps:
       - name: Git Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Check for Changes
         uses: dorny/paths-filter@v3
@@ -34,7 +34,7 @@ jobs:
       description: ${{ steps.desc.outputs.description }}
     steps:
       - name: Git Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Get Latest Tag
         uses: actions-ecosystem/action-get-latest-tag@v1
@@ -73,7 +73,7 @@ jobs:
         arch: ${{ fromJson(needs.init.outputs.architectures) }}
     steps:
       - name: Git Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Test Build
         uses: home-assistant/builder@master
