@@ -1,5 +1,10 @@
 # Changelog
 
+## 2025.11.1 - 2025-11-16
+
+- Remove deprecated `codenotary` fields
+- Updated to the latest version of RSSHub
+
 ## 2025.6.1 - 2025-06-30
 
 - Updated to the latest version of RSSHub
