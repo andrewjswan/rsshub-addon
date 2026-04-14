@@ -1,10 +1,10 @@
 <div align="center">
-<h1>RSSHub Add-on</h1>
+<h1>Home Assistant App: RSSHub</h1>
 </div>
 
 ## General
 
-[![ha addon_badge](https://img.shields.io/badge/HA-Addon-blue.svg)](https://developers.home-assistant.io/docs/add-ons)
+[![ha app_badge](https://img.shields.io/badge/HA-App-blue.svg)](https://developers.home-assistant.io/docs/add-ons)
 [![rsshub](https://img.shields.io/badge/RSS-Hub-blue.svg)](https://github.com/andrewjswan/rsshub-addon/)
 [![GitHub](https://img.shields.io/github/license/andrewjswan/rsshub-addon?color=blue)](https://github.com/andrewjswan/rsshub-addon/blob/main/LICENSE)
 [![GitHub release (latest SemVer including pre-releases)](https://img.shields.io/github/v/release/andrewjswan/rsshub-addon?include_prereleases)](https://github.com/andrewjswan/rsshub-addon/blob/main/rsshub/CHANGELOG.md)

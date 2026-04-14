@@ -7,7 +7,7 @@ on:
 
 jobs:
   information:
-    name: ℹ️ Gather add-on information
+    name: ℹ️ Gather App information
     runs-on: ubuntu-latest
     outputs:
       architectures: ${{ steps.information.outputs.architectures }}
@@ -20,10 +20,12 @@ jobs:
       slug: ${{ steps.information.outputs.slug }}
       target: ${{ steps.information.outputs.target }}
       version: ${{ steps.version.outputs.version }}
+    permissions:
+      contents: read
     steps:
       - name: ⤵️ Check out code from GitHub
         uses: actions/checkout@v6
-      - name: 🚀 Run add-on information action
+      - name: 🚀 Run App information action
         id: information
         uses: andrewjswan/home-assistant-addons/helpers/info@main
       - name: ℹ️ Gather version and environment
@@ -42,10 +44,12 @@ jobs:
           echo "version=${version}" >> "$GITHUB_OUTPUT"
 
   publish:
-    name: 📢 Publish Add-on
+    name: 📢 Publish App
     runs-on: ubuntu-latest
     needs:
       - information
+    permissions:
+      contents: write
     steps:
       - name: 🚀 Dispatch Repository Updater update signal
         uses: peter-evans/repository-dispatch@v4

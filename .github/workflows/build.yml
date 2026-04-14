@@ -1,10 +1,17 @@
-name: RSSHub / Addon
+name: RSSHub / App
 
 on:
   push:
     branches:
-      - main
+      - master
   workflow_dispatch:
+
+permissions:
+  contents: write
+  discussions: write
+
+env:
+  IMAGE_NAME: rsshub-addon
 
 jobs:
   changes:
@@ -32,6 +39,7 @@ jobs:
       version: ${{ steps.yaml.outputs.version }}
       architectures: ${{ steps.info.outputs.architectures }}
       description: ${{ steps.desc.outputs.description }}
+      matrix: ${{ steps.matrix.outputs.matrix }}
     steps:
       - name: Git Checkout
         uses: actions/checkout@v6
@@ -48,7 +56,7 @@ jobs:
         with:
           file_path: ./rsshub/config.yaml
 
-      - name: Get Addon Information
+      - name: Get App Information
         id: info
         uses: home-assistant/actions/helpers/info@master
         with:
@@ -60,31 +68,45 @@ jobs:
           echo "description="$(cat CHANGELOG.md | awk '/^##/{if(++i>1)exit} i' | awk '{if(NR>1)print}')"" >> $GITHUB_OUTPUT
         working-directory: ./rsshub
 
+      - name: Get build matrix
+        id: matrix
+        uses: home-assistant/builder/actions/prepare-multi-arch-matrix@2026.03.2
+        with:
+          architectures: ${{ steps.info.outputs.architectures }}
+          image-name: ${{ env.IMAGE_NAME }}
+
   test:
-    name: Test / Build
+    name: Test / Build ${{ matrix.arch }}
     if: ${{ needs.changes.outputs.changes == 'true' }}
     needs:
       - changes
       - init
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
-      matrix:
-        arch: ${{ fromJson(needs.init.outputs.architectures) }}
+      matrix: ${{ fromJSON(needs.init.outputs.matrix) }}
+    permissions:
+      contents: read
+      id-token: write
+      packages: write
     steps:
       - name: Git Checkout
         uses: actions/checkout@v6
 
-      - name: Test Build
-        uses: home-assistant/builder@master
+      - name: Build Test Image
+        uses: home-assistant/builder/actions/build-image@2026.03.2
         with:
-          args: |
-            --test \
-            --${{ matrix.arch }} \
-            --target rsshub \
-            --docker-hub "ghcr.io/${{ github.repository_owner }}" \
-            --image "rsshub-addon-{arch}" \
-            --addon
+          arch: ${{ matrix.arch }}
+          image: ${{ matrix.image }}
+          version: ${{ needs.init.outputs.version }}
+          image-tags: |
+            ${{ needs.init.outputs.version }}
+            latest
+          push: false
+          cosign: false
+          cache-gha: false
+          context: ./rsshub
+          container-registry-password: ${{ secrets.GITHUB_TOKEN }}
 
   docker:
     name: Docker
@@ -96,6 +118,7 @@ jobs:
     permissions:
       contents: read
       packages: write
+      id-token: write
     secrets: inherit
 
   release:
