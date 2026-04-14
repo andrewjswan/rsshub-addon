@@ -1,6 +1,6 @@
 # Changelog
 
-## 2026.4.1 - 2026-04-14
+## 2026.4.3 - 2026-04-14
 
 - Migrate to HA App system
 

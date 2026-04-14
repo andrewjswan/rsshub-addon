@@ -7,7 +7,7 @@
 [![ha app_badge](https://img.shields.io/badge/HA-App-blue.svg)](https://developers.home-assistant.io/docs/add-ons)
 [![rsshub](https://img.shields.io/badge/RSS-Hub-blue.svg)](https://github.com/andrewjswan/rsshub-addon/)
 [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/andrewjswan/rsshub-addon/build.yml?logo=github)](https://github.com/andrewjswan/rsshub-addon/actions)
-[![GitHub](https://img.shields.io/github/license/andrewjswan/rsshub-addon?color=blue)](https://github.com/andrewjswan/rsshub-addon/blob/master/LICENSE)
+[![GitHub](https://img.shields.io/github/license/andrewjswan/rsshub-addon?color=blue)](https://github.com/andrewjswan/rsshub-addon/blob/main/LICENSE)
 [![GitHub release (latest SemVer including pre-releases)](https://img.shields.io/github/v/release/andrewjswan/rsshub-addon?include_prereleases)](https://github.com/andrewjswan/rsshub-addon/blob/main/rsshub/CHANGELOG.md)
 [![GitHub package.json version](https://img.shields.io/github/package-json/v/DIYgod/RSSHub?label=RSSHub%40based)](https://github.com/DIYgod/RSSHub)
 [![StandWithUkraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/badges/StandWithUkraine.svg)](https://github.com/vshymanskyy/StandWithUkraine/blob/main/docs/README.md)
