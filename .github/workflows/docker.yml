@@ -4,13 +4,19 @@ on:
   workflow_call:
   workflow_dispatch:
 
+env:
+  IMAGE_NAME: rsshub-addon
+
 jobs:
   init:
-    name: Addon / Init
+    name: App / Init
     runs-on: ubuntu-latest
     outputs:
       version: ${{ steps.yaml.outputs.version }}
       architectures: ${{ steps.info.outputs.architectures }}
+      matrix: ${{ steps.matrix.outputs.matrix }}
+    permissions:
+      contents: read
     steps:
       - name: Git Checkout
         uses: actions/checkout@v6
@@ -21,41 +27,66 @@ jobs:
         with:
           file_path: ${{ github.workspace }}/rsshub/config.yaml
 
-      - name: Get Addon Information
+      - name: Get App Information
         id: info
         uses: home-assistant/actions/helpers/info@master
         with:
           path: "./rsshub"
 
+      - name: Get build matrix
+        id: matrix
+        uses: home-assistant/builder/actions/prepare-multi-arch-matrix@2026.03.2
+        with:
+          architectures: ${{ steps.info.outputs.architectures }}
+          image-name: ${{ env.IMAGE_NAME }}
+
   docker:
-    name: Docker / Build
+    name: Docker / Build ${{ matrix.arch }}
     needs:
       - init
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
-      matrix:
-        arch: ${{ fromJson(needs.init.outputs.architectures) }}
+      matrix: ${{ fromJSON(needs.init.outputs.matrix) }}
     permissions:
       contents: read
+      id-token: write
       packages: write
     steps:
       - name: Git Checkout
         uses: actions/checkout@v6
 
-      - name: Login to GitHub Container Registry
-        uses: docker/login-action@v4
+      - name: Build Test Image
+        uses: home-assistant/builder/actions/build-image@2026.03.2
         with:
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-          registry: ghcr.io
+          arch: ${{ matrix.arch }}
+          image: ${{ matrix.image }}
+          version: ${{ needs.init.outputs.version }}
+          image-tags: |
+            ${{ needs.init.outputs.version }}
+            latest
+          push: true
+          cosign: true
+          cache-gha: false
+          context: ./rsshub
+          container-registry-password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build
-        uses: home-assistant/builder@master
+  manifest:
+    name: Publish multi-arch manifest
+    needs:
+      - init
+      - docker
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      packages: write
+    steps:
+      - name: Publish multi-arch manifest
+        uses: home-assistant/builder/actions/publish-multi-arch-manifest@2026.03.2
         with:
-          args: |
-            --${{ matrix.arch }} \
-            --target rsshub \
-            --docker-hub "ghcr.io/${{ github.repository_owner }}" \
-            --image "rsshub-addon-{arch}" \
-            --addon
+          architectures: ${{ needs.init.outputs.architectures }}
+          container-registry-password: ${{ secrets.GITHUB_TOKEN }}
+          image-name: ${{ env.IMAGE_NAME }}
+          image-tags: |
+            ${{ needs.init.outputs.version }}
+            latest
