@@ -1,7 +1,12 @@
 ARG BUILD_FROM
-FROM diygod/rsshub AS org
+FROM ghcr.io/diygod/rsshub:latest AS org
 
 FROM $BUILD_FROM
+
+ARG TARGETPLATFORM
+ARG BUILDPLATFORM
+
+RUN echo "Docker builder running on $BUILDPLATFORM, building for $TARGETPLATFORM"
 
 # Packages
 RUN \
