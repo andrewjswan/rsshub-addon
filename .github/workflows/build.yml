@@ -21,7 +21,7 @@ jobs:
       changes: ${{ steps.changes.outputs.scr }}
     steps:
       - name: Git Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Check for Changes
         uses: dorny/paths-filter@v4
@@ -42,7 +42,7 @@ jobs:
       matrix: ${{ steps.matrix.outputs.matrix }}
     steps:
       - name: Git Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Get Latest Tag
         uses: actions-ecosystem/action-get-latest-tag@v1
@@ -91,7 +91,7 @@ jobs:
       packages: write
     steps:
       - name: Git Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Build Test Image
         uses: home-assistant/builder/actions/build-image@2026.03.2

@@ -19,7 +19,7 @@ jobs:
       contents: read
     steps:
       - name: Git Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Get Version from Config
         uses: christian-ci/action-yaml-github-output@v2
@@ -54,7 +54,7 @@ jobs:
       packages: write
     steps:
       - name: Git Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Build Test Image
         uses: home-assistant/builder/actions/build-image@2026.03.2
